@@ -1,0 +1,38 @@
+# Importamos las librerías necesarias
+import pandas as pd
+
+# Función para ingresar las variables
+def ingresar_variables():
+    equipo_local = input("Ingrese el nombre del equipo local: ")
+    equipo_visitante = input("Ingrese el nombre del equipo visitante: ")
+    probabilidad_local = float(input(f"Ingrese la probabilidad (en %) de que {equipo_local} gane: ")) / 100
+    probabilidad_empate = float(input("Ingrese la probabilidad (en %) de empate: ")) / 100
+    probabilidad_visitante = float(input(f"Ingrese la probabilidad (en %) de que {equipo_visitante} gane: ")) / 100
+
+    # Validamos que las probabilidades sumen 100%
+    total_probabilidad = probabilidad_local + probabilidad_empate + probabilidad_visitante
+    if total_probabilidad != 1:
+        raise ValueError("Las probabilidades no suman 100%. Por favor, ajusta los valores.")
+
+    return {
+        'equipo_local': equipo_local,
+        'equipo_visitante': equipo_visitante,
+        'probabilidad_local': probabilidad_local,
+        'probabilidad_empate': probabilidad_empate,
+        'probabilidad_visitante': probabilidad_visitante
+    }
+
+# Simulamos un análisis de probabilidades basado en las variables ingresadas
+def analizar_apuesta(datos):
+    print(f"\nAnálisis del partido: {datos['equipo_local']} vs {datos['equipo_visitante']}")
+    if datos['probabilidad_local'] > datos['probabilidad_visitante']:
+        print(f"Recomendación: Mayor probabilidad de victoria para {datos['equipo_local']}")
+    elif datos['probabilidad_visitante'] > datos['probabilidad_local']:
+        print(f"Recomendación: Mayor probabilidad de victoria para {datos['equipo_visitante']}")
+    else:
+        print("El partido parece estar muy equilibrado. Probabilidad de empate alta.")
+
+# Programa principal
+if __name__ == "__main__":
+    datos_partido = ingresar_variables()
+    analizar_apuesta(datos_partido)
